@@ -6,25 +6,24 @@ import password_icon from "../assets/password.png"
 import close_icon from "../assets/close.png"
 
 const Register = () => {
-  // State variables for form inputs
+  // 1. State variables MUST be at the top inside the component
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setlastName] = useState("");
 
-  // Redirect to home
+  // 2. Helper functions
   const gohome = () => {
     window.location.href = window.location.origin;
   }
 
-  // Handle form submission
+  // 3. Handle form submission
   const register = async (e) => {
     e.preventDefault();
 
     let register_url = window.location.origin + "/djangoapp/register";
 
-    // Send POST request to register endpoint
     const res = await fetch(register_url, {
       method: "POST",
       headers: {
@@ -41,11 +40,9 @@ const Register = () => {
 
     const json = await res.json();
     if (json.status === "Authenticated") {
-      // Save username in session and reload home
       sessionStorage.setItem('username', json.userName);
       window.location.href = window.location.origin;
-    }
-    else if (json.error === "Already Registered") {
+    } else if (json.error === "Already Registered") {
       alert("The user with same username is already registered");
       window.location.href = window.location.origin;
     }
@@ -73,29 +70,25 @@ const Register = () => {
             <img src={user_icon} className="img_icon" alt='First Name' />
             <input type="text" name="first_name" placeholder="First Name" className="input_field" onChange={(e) => setFirstName(e.target.value)} />
           </div>
-
           <div className="input">
             <img src={user_icon} className="img_icon" alt='Last Name' />
             <input type="text" name="last_name" placeholder="Last Name" className="input_field" onChange={(e) => setlastName(e.target.value)} />
           </div>
-
           <div className="input">
             <img src={email_icon} className="img_icon" alt='Email' />
             <input type="email" name="email" placeholder="email" className="input_field" onChange={(e) => setEmail(e.target.value)} />
           </div>
-
           <div className="input">
             <img src={password_icon} className="img_icon" alt='password' />
             <input name="psw" type="password" placeholder="Password" className="input_field" onChange={(e) => setPassword(e.target.value)} />
           </div>
         </div>
-
         <div className="submit_panel">
           <input className="submit" type="submit" value="Register" />
         </div>
       </form>
     </div>
-  )
+  );
 }
 
 export default Register;
