@@ -109,6 +109,10 @@ def get_dealerships(request, state="All"):
 # def get_dealer_details(request, dealer_id):
 # ...
 
-# Create a `add_review` view to submit a review
-# def add_review(request):
-# ...
+def get_dealer_details(request, dealer_id):
+    if(dealer_id):
+        endpoint = "/fetchDealer/"+str(dealer_id)
+        dealership = get_request(endpoint)
+        return JsonResponse({"status":200,"dealer":dealership})
+    else:
+        return JsonResponse({"status":400,"message":"Bad Request"})
