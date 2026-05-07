@@ -22,8 +22,6 @@ urlpatterns = [
 
 
 
-
-
     # path for dealer reviews view
 
     # path for add a review view
